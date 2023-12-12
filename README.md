@@ -1,2 +1,2 @@
-# openkj-request-server
-Node.js request server for OpenKJ.
+# 🎤 openkj-request-server
+A self-hosted Node.js request server for use with OpenKJ.

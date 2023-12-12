@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black m-0;
+}
+
+.ant-modal-confirm-content {
+  @apply hidden;
+}

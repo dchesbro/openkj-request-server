@@ -141,7 +141,7 @@ function App() {
   /**
    * Effects
    */
-  useEffect(() => {
+  /* useEffect(() => {
     switch (accepting) {
       case false:
         disableBodyScroll(modal);
@@ -160,7 +160,7 @@ function App() {
     return () => {
       Modal.destroyAll();
     };
-  }, [accepting]);
+  }, [accepting]); */
 
   useEffect(() => {
     switch (requestOpen) {
@@ -263,7 +263,8 @@ function App() {
                   children: 
                     <>
                       <ListSongs
-                        dataSource={accepting ? songList : []}
+                        accepting={accepting}
+                        dataSource={songList}
                         locale={{
                           emptyText:
                             <Empty
@@ -289,7 +290,8 @@ function App() {
                 {
                   children:
                     <ListSongs
-                      dataSource={accepting ? savedList : []}
+                      accepting={accepting}
+                      dataSource={savedList}
                       locale={{
                         emptyText:
                           <Empty

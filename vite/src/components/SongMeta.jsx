@@ -1,5 +1,5 @@
 import { AudioOutlined } from '@ant-design/icons';
-import { Avatar, List, Space, Typography } from 'antd';
+import { Avatar, List, Typography } from 'antd';
 
 export default function SongMeta({ showIcon = false, song }) {
   const regex = /\[([^)]+)\]/;
@@ -14,7 +14,7 @@ export default function SongMeta({ showIcon = false, song }) {
   }
 
   return (
-    <List.Item.Meta
+    <List.Item.Meta className="uppercase"
       avatar={showIcon && (
         <Avatar
           icon={<AudioOutlined />}
@@ -30,26 +30,29 @@ export default function SongMeta({ showIcon = false, song }) {
           : song?.artist
       }
       title={
-        <Space>
+        <>
           {
             showIcon
             ?
-              <span className="leading-none text-lg">
+              <span className="leading-none mr-1 text-lg">
                 {title}
               </span>
-            : title
+            : 
+              <spac className="mr-1">
+                {title}
+              </spac>
           }
           {
             tag &&
               <Typography.Text
-                className="font-normal uppercase !cursor-default"
+                className="align-text-top font-normal text-xs !cursor-default"
                 code
                 disabled
               >
                 {tag}
               </Typography.Text>
           }
-        </Space>
+        </>
       }
     />
   );

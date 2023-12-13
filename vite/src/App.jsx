@@ -56,7 +56,7 @@ function App() {
    */
   const acceptingGet = useCallback(() => {
     fetch(
-      'http://0.0.0.0:3000/api', {
+      '/api', {
         ...fetchOptions,
         body: JSON.stringify({
           'command': 'getAccepting',
@@ -81,7 +81,7 @@ function App() {
 
   const requestSubmit = useCallback((fields) => {
     fetch(
-      'http://0.0.0.0:3000/api', {
+      '/api', {
         ...fetchOptions,
         body: JSON.stringify({
           'command': 'submitRequest',
@@ -99,7 +99,7 @@ function App() {
 
   const resultsGet = useCallback(() => {
     fetch(
-      'http://0.0.0.0:3000/api', {
+      '/api', {
         ...fetchOptions,
         body: JSON.stringify({
           'command': 'search',
@@ -111,6 +111,7 @@ function App() {
     ).then((data) => {
       setSongList(data.songs);
       setTab('tab_songs');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }));
   }, [searchString]);
 

@@ -6,8 +6,6 @@ import {
 import { ConfigProvider, Empty, Form, Layout, Modal, Tabs, theme } from 'antd';
 import { HappyProvider } from '@ant-design/happy-work-theme';
 import {
-  DislikeOutlined,
-  LikeOutlined,
   QuestionCircleOutlined,
   ReadFilled,
   StarFilled,
@@ -189,14 +187,12 @@ function App() {
       case false:
         modal.error({
           onOk: onOk,
-          icon: <DislikeOutlined />,
           title: 'Something wnet wrong!',
         });
         break;
       case true:
         modal.success({
           onOk: onOk,
-          icon: <LikeOutlined />,
           title: 'Request submitted successfully!',
         });
         break;

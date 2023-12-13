@@ -3,7 +3,7 @@
 A self-hosted Node.js request server for use with OpenKJ.
 
 ## What does OpenKJ Request Server do?
-OpenKJ Request Server provides a modern web-based interface for karaoke hosts  
+OpenKJ Request Server provides a modern web-based interface for karaoke hosts 
 using the OpenKJ karaoke hosting software. Singers can browse and search your 
 songbook, submit song requests, and save their favorite songs for later.
 

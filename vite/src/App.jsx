@@ -263,7 +263,6 @@ function App() {
                   children: 
                     <>
                       <ListSongs
-                        accepting={accepting}
                         dataSource={songList}
                         locale={{
                           emptyText:
@@ -290,7 +289,6 @@ function App() {
                 {
                   children:
                     <ListSongs
-                      accepting={accepting}
                       dataSource={savedList}
                       locale={{
                         emptyText:

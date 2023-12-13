@@ -3,7 +3,7 @@ import { Button, List, Space } from 'antd';
 import SongMeta from './SongMeta';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 
-export default function ListSongs({ accepting, pageCurrent, pageOnChange, onRequest, onSave, saved, ...props }) {
+export default function ListSongs({ pageCurrent, pageOnChange, onRequest, onSave, saved, ...props }) {
   return (
     <List
       {...props}
@@ -28,10 +28,7 @@ export default function ListSongs({ accepting, pageCurrent, pageOnChange, onRequ
         <List.Item
           extra={
             <Space.Compact className="ml-4">
-              <Button
-                disabled={!accepting}
-                onClick={() => onRequest(item)}
-              >
+              <Button onClick={() => onRequest(item)}>
                 Request
               </Button>
               <Button

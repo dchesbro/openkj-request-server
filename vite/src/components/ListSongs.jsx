@@ -3,7 +3,7 @@ import { Button, List, Space } from 'antd';
 import SongMeta from './SongMeta';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 
-export default function ListSongs({ onRequest, onSave, saved, ...props }) {
+export default function ListSongs({ pageCurrent, pageOnChange, onRequest, onSave, saved, ...props }) {
   return (
     <List
       {...props}
@@ -11,8 +11,10 @@ export default function ListSongs({ onRequest, onSave, saved, ...props }) {
       pagination={{
         align: 'center',
         className: 'inline-flex items-center',
+        current: pageCurrent,
         hideOnSinglePage: !props?.dataSource?.length,
-        onChange: () => {
+        onChange: (page, pageSize) => {
+          pageOnChange(page);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         pageSize: 100,

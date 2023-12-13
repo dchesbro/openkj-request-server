@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  openkj-request-server:
+    container_name: openkj-request-server
+    image: ghcr.io/dchesbro/openkj-request-server:main
+    ports:
+      - 3300:3300
+    restart: unless-stopped

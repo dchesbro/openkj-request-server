@@ -28,6 +28,8 @@ function App() {
   const [formRequest] = Form.useForm();
   const [formSearch] = Form.useForm();
   const [modal, modalContext] = Modal.useModal();
+  const [pageSaved, setPageSaved] = useState();
+  const [pageSongbook, setPageSongbook] = useState();
   const [requestOpen, setRequestOpen] = useState();
   const [requestSuccess, setRequestSuccess] = useState();
   const [savedList, setSaveList] = useState();
@@ -109,6 +111,7 @@ function App() {
     ).then((_res) => (
       _res.json()
     ).then((data) => {
+      setPageSongbook(1);
       setSongList(data.songs);
       setTab('tab_songs');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -277,6 +280,8 @@ function App() {
                         }}
                         onRequest={requestShow}
                         onSave={savedToggle}
+                        pageCurrent={pageSongbook}
+                        pageOnChange={setPageSongbook}
                         saved={savedList}
                       />
                     </>
@@ -305,6 +310,8 @@ function App() {
                       }}
                       onRequest={requestShow}
                       onSave={savedToggle}
+                      pageCurrent={pageSaved}
+                      pageOnChange={setPageSaved}
                       saved={savedList}
                     />
                   ,

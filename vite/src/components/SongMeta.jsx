@@ -24,7 +24,7 @@ export default function SongMeta({ showIcon = false, song }) {
       description={
         showIcon
           ?
-            <span className="leading-none text-lg">
+            <span className="leading-tight text-lg">
               {song?.artist}
             </span>
           : song?.artist
@@ -34,7 +34,7 @@ export default function SongMeta({ showIcon = false, song }) {
           {
             showIcon
             ?
-              <span className="leading-none mr-1 text-lg">
+              <span className="leading-tight mr-1 text-lg">
                 {title}
               </span>
             : 
@@ -45,7 +45,7 @@ export default function SongMeta({ showIcon = false, song }) {
           {
             tag &&
               <Typography.Text
-                className="align-text-top font-normal text-xs !cursor-default"
+                className="font-normal inline-block text-xs !cursor-default"
                 code
                 disabled
               >

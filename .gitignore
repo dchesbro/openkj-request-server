@@ -129,7 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-!.vscode/extensions.json
 !express/public/index.html
 .DS_Store
 .vscode/*

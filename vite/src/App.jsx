@@ -46,7 +46,7 @@ export default function App() {
 
   // effects
   useEffect(() => {
-    setFavorites(JSON.parse(localStorage.getItem('okjs_saved')) ?? []);
+    setFavorites(JSON.parse(localStorage.getItem('okjrs_favorites')) ?? []);
 
     return () => {
       clearAllBodyScrollLocks();

@@ -2,7 +2,7 @@ const Database = require('better-sqlite3');
 const express = require('express');
 const rand = require('lodash.random');
 
-const db = new Database('songbook.db', { verbose: console.log });
+const db = new Database('db/songbook.db', { verbose: console.log });
 const router = express.Router();
 
 db.prepare(`CREATE TABLE IF NOT EXISTS songdb (song_id INTEGER PRIMARY KEY AUTOINCREMENT, artist TEXT, title TEXT, combined TEXT UNIQUE)`).run();

@@ -1,9 +1,51 @@
 import { Button, List, Space } from 'antd';
-
-import SongMeta from './SongMeta';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
+import { useCallback, useContext } from 'react';
 
-export default function ListSongs({ pageCurrent, pageOnChange, onRequest, onSave, saved, ...props }) {
+import { ContextApp } from '../context/App';
+import SongMeta from './SongMeta';
+
+export default function ListSongs({ onPageChange, pageCurrent, ...props }) {
+
+  // variables
+  const {
+    favorites,
+    popup,
+    setFavorites,
+    setModalOpen,
+    setRequestSong,
+  } = useContext(ContextApp);
+
+  // callbacks
+  const favoritesGet = useCallback((item) => (
+    favorites.some((obj) => obj.song_id === item.song_id)
+  ), [favorites]);
+
+  const favoritesToggle = useCallback((item) => {    
+    let data = [];
+
+    // If previously added to saved list, remove from list...
+    if (favoritesGet(item)) {
+      data = favorites.filter((obj) => obj !== item);
+    
+    // ...else, add to list and sort by artist.
+    } else {
+      data = [...favorites, item];
+
+      data.sort((a, b) => (
+        a.artist.localeCompare(b.artist) || a.title.localeCompare(b.title)
+      ));
+    }
+
+    localStorage.setItem('okjs_saved', JSON.stringify(data));
+    setFavorites(data);
+  }, [favorites]);
+
+  const requestShow = useCallback((item) => {
+    setModalOpen(true);
+    setRequestSong(item);
+  }, []);
+
   return (
     <List
       {...props}
@@ -12,10 +54,9 @@ export default function ListSongs({ pageCurrent, pageOnChange, onRequest, onSave
         align: 'center',
         className: 'inline-flex items-center',
         current: pageCurrent,
-        hideOnSinglePage: !props?.dataSource?.length,
+        hideOnSinglePage: !props?.dataSource.length,
         onChange: (page, pageSize) => {
-          pageOnChange(page);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          onPageChange(page);
         },
         pageSize: 100,
         showSizeChanger: false,
@@ -26,22 +67,18 @@ export default function ListSongs({ pageCurrent, pageOnChange, onRequest, onSave
       }}
       renderItem={(item, index) => (
         <List.Item
+          className="!px-3"
           extra={
             <Space.Compact className="ml-4">
-              <Button onClick={() => onRequest(item)}>
+              <Button onClick={() => requestShow(item)}>
                 Request
               </Button>
               <Button
-                icon={
-                  saved.some(obj => obj.song_id === item.song_id)
-                    ? <StarFilled />
-                    : <StarOutlined />
-                }
-                onClick={() => onSave(item)}
+                icon={favoritesGet(item) ? <StarFilled /> : <StarOutlined />}
+                onClick={() => favoritesToggle(item)}
               />
             </Space.Compact>
           }
-          className="!px-3"
         >
           <SongMeta song={item} />
         </List.Item>

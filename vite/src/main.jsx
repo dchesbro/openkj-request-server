@@ -1,4 +1,4 @@
-import OpenKJServer from './App.jsx';
+import OpenKJRequestServer from './App.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -6,6 +6,6 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <OpenKJServer />
+    <OpenKJRequestServer />
   </React.StrictMode>,
 );

@@ -1,22 +1,94 @@
 import { Form, Input, List, Modal } from 'antd';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
+import { ContextApp } from '../context/App';
 import SongMeta from './SongMeta';
 
-export default function ModalRequest({ form, onCancel, onFinish, open, song }) {
+export default function ModalRequest() {
+
+  // variables
+  const [error, setError] = useState();
+  const [form] = Form.useForm();
+  const {
+    api,
+    disableBodyScroll,
+    enableBodyScroll,
+    modalOpen,
+    popup,
+    requestSong,
+    setModalOpen,
+    setRequestSong,
+  } = useContext(ContextApp);
+
+  // callbacks
+  const requestHide = useCallback(() => {
+    setModalOpen(false);
+    setRequestSong();
+  }, []);
+
+  const requestSubmit = useCallback((fields) => {
+    fetch(
+      api.endpoint, {
+        ...api.options,
+        body: JSON.stringify({
+          'command': 'submitRequest',
+          'singerName': fields.singer,
+          'songId': fields.song_id,
+        }),
+      }
+    ).then((_res) => (
+      _res.json()
+    ).then((json) => {
+      requestHide();
+      setError(json.error);
+    }));
+  }, []);
+
+  // effects
+  useEffect(() => {
+    const errorHide = () => {
+      enableBodyScroll(popup);
+      setError();
+    };
+
+    if (error !== undefined) {
+      disableBodyScroll(popup);
+    }
+
+    switch (error) {
+      case false:
+        popup.success({
+          okText: 'Heck yeah',
+          onOk: errorHide,
+          title: 'Request submitted successfully!',
+        });
+        break;
+      case true:
+        popup.error({
+          okText: 'Uh oh',
+          onOk: errorHide,
+          title: 'Smoething wnet worng!',
+        });
+        break;
+    }
+  }, [error]);
+
   return (
     <Modal
+      cancelText="Hold up"
       closeIcon={false}
       maskClosable={false}
-      onCancel={onCancel}
+      okText="Send it"
+      onCancel={requestHide}
       onOk={form.submit}
-      open={open}
+      open={modalOpen}
       width={480}
     >
       <List>
         <List.Item>
           <SongMeta
             showIcon
-            song={song}
+            song={requestSong}
           />
         </List.Item>
       </List>
@@ -25,13 +97,13 @@ export default function ModalRequest({ form, onCancel, onFinish, open, song }) {
         fields={[
           {
             name: 'song_id',
-            value: song?.song_id,
+            value: requestSong?.song_id,
           }
         ]}
         form={form}
         layout="vertical"
         size="large"
-        onFinish={onFinish}
+        onFinish={requestSubmit}
       >
         <Form.Item
           hidden

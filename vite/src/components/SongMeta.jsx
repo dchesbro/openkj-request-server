@@ -38,9 +38,9 @@ export default function SongMeta({ showIcon = false, song }) {
                 {title}
               </span>
             : 
-              <spac className="mr-1">
+              <span className="mr-1">
                 {title}
-              </spac>
+              </span>
           }
           {
             tag &&

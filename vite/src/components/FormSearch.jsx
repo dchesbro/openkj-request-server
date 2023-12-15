@@ -1,18 +1,60 @@
 import { Button, Input, Form } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { useCallback, useContext, useEffect } from 'react';
 
-export default function FormSearch({ form, onFinish }) {
+import { ContextApp } from '../context/App';
+
+export default function FormSearch() {
+
+  // variables
+  const [form] = Form.useForm();
+  const {
+    api,
+    loading,
+    setActiveTab,
+    setLoading,
+    setPageSongs,
+    setSongs,
+  } = useContext(ContextApp);
+  const search = Form.useWatch('search', form);
+
+  // callbacks
+  const searchGet = useCallback(() => {
+    setLoading(true);
+
+    fetch(
+      api.endpoint, {
+        ...api.options,
+        body: JSON.stringify({
+          'command': 'search',
+          'searchString': search ?? '',
+        }),
+      }
+    ).then((_res) => (
+      _res.json()
+    ).then((json) => {
+      setActiveTab('tab_songbook');
+      setLoading(false);
+      setPageSongs(1);
+      setSongs(json.songs);
+    }));
+  }, [search]);
+
+  // effects
+  useEffect(searchGet, []);
+
   return (
     <Form
       autoComplete="off"
-      className="flex flex-nowrap max-w-screen-sm px-6 w-full"
+      className="flex flex-auto max-w-screen-sm px-6"
+      disabled={loading}
       form={form}
       layout="inline"
-      onFinish={onFinish}
+      onFinish={searchGet}
       size="large"
     >
       <Form.Item
-        className="mb-0 !flex-auto !me-2"
+        className="mb-0 !flex-auto !mr-3"
         name="search"
       >
         <Input

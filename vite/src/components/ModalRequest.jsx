@@ -8,6 +8,7 @@ export default function ModalRequest() {
 
   // variables
   const [error, setError] = useState();
+  const [fieldsEmpty, setFieldsEmpty] = useState();
   const [form] = Form.useForm();
   const {
     api,
@@ -21,6 +22,14 @@ export default function ModalRequest() {
   } = useContext(ContextApp);
 
   // callbacks
+  const isEmpty = useCallback(() => {
+    const fields = form.getFieldsValue();
+
+    setFieldsEmpty(Object.values(fields).some((value) => (
+      value === undefined || value === ''
+    )));
+  }, []);
+
   const requestHide = useCallback(() => {
     setModalOpen(false);
     setRequestSong();
@@ -73,11 +82,15 @@ export default function ModalRequest() {
     }
   }, [error]);
 
+  useEffect(isEmpty, []);
+
   return (
     <Modal
       cancelText="Hold up"
       closeIcon={false}
+      forceRender
       maskClosable={false}
+      okButtonProps={{ disabled: fieldsEmpty }}
       okText="Send it"
       onCancel={requestHide}
       onOk={form.submit}
@@ -102,6 +115,7 @@ export default function ModalRequest() {
         ]}
         form={form}
         layout="vertical"
+        onChange={isEmpty}
         size="large"
         onFinish={requestSubmit}
       >

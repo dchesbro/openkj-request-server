@@ -36,7 +36,7 @@ export default function ListSongs({ onPageChange, pageCurrent, ...props }) {
       ));
     }
 
-    localStorage.setItem('okjs_saved', JSON.stringify(data));
+    localStorage.setItem('okjrs_favorites', JSON.stringify(data));
     setFavorites(data);
   }, [favorites]);
 
@@ -48,7 +48,7 @@ export default function ListSongs({ onPageChange, pageCurrent, ...props }) {
   return (
     <List
       {...props}
-      className="max-w-screen-sm min-h-screen mx-auto pb-20 pt-16"
+      className="max-w-screen-sm mx-auto pb-20 pt-16"
       pagination={{
         align: 'center',
         className: 'inline-flex items-center',

@@ -1,7 +1,6 @@
 import { Button, List, Space } from 'antd';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { useCallback, useContext } from 'react';
-import cx from 'classnames';
 
 import { ContextApp } from '../context/App';
 import SongMeta from './SongMeta';
@@ -49,12 +48,7 @@ export default function ListSongs({ onPageChange, pageCurrent, ...props }) {
   return (
     <List
       {...props}
-      className={cx(
-        'max-w-screen-sm min-h-screen mx-auto pb-20 pt-16',
-        {
-          'flex items-center justify-center': !props?.dataSource.length,
-        }
-      )}
+      className="max-w-screen-sm min-h-screen mx-auto pb-20 pt-16"
       pagination={{
         align: 'center',
         className: 'inline-flex items-center',
